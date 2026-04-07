@@ -3,7 +3,13 @@ let posts = require('../data/posts');
 
 // index
 const index = (req, res) => {
-    res.json({ posts });
+    let result = posts;
+
+    if (req.query.tag) {
+        result = posts.filter(post => post.tags.includes(req.query.tag));
+    }
+
+    res.json({ posts: result });
 };
 
 
@@ -11,11 +17,11 @@ const index = (req, res) => {
 const show = (req, res) => {
     const post = posts.find(post => post.id === parseInt(req.params.id));
 
-    if (post) {
-        res.json({ post });
-    } else {
-        res.status(404).json({ error: 'Post non trovato' });
+    if (!post) {
+        return res.status(404).json({ error: 'Post non trovato' });
     }
+
+    res.json({ post });
 };
 
 
@@ -39,6 +45,12 @@ const modify = (req, res) => {
 
 // destroy
 const destroy = (req, res) => {
+    const post = posts.find(post => post.id === parseInt(req.params.id));
+
+    if (!post) {
+        return res.status(404).json({ error: 'Post non trovato' });
+    }
+
     posts = posts.filter(post => post.id !== parseInt(req.params.id));
     console.log(posts);
     res.status(204).send();
