@@ -1,0 +1,13 @@
+{
+    "name": "express-blog-intro",
+    "version": "1.0.0",
+    "description": "Esercizio: simple Express blog with /bacheca route",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node --watch server.js"
+    },
+    "dependencies": {
+        "express": "^4.18.2"
+    }
+}
