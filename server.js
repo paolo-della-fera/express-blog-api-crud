@@ -8,6 +8,11 @@ const postsRouter = require('./routes/posts');
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+// Register the body parts
+app.use(express.json());
+
+
+// Start the server
 app.listen(PORT, () => {
     console.log(`Server del mio blog in ascolto sulla porta http://127.0.0.1:${PORT}`);
 });
