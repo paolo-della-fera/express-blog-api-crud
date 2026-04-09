@@ -26,3 +26,16 @@ app.get('/', (req, res) => {
 
 // 📌 Post CRUD
 app.use('/posts', postsRouter);
+
+
+// Middleware per rotte non registrate (404)
+app.use((req, res) => {
+    res.status(404).json({ error: 'Endpoint non trovato' });
+});
+
+
+// Middleware per gestione errori (500)
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Errore interno del server' });
+});
